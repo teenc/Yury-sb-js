@@ -9,9 +9,12 @@ client.on('ready', async () => {
 
 const prefix = '.'
 
-client.on('messageCreate', (msg, args) => {
-    if(msg.content.startsWith(`${prefix}test`))
-        msg.channel.send('test works')
+client.on('messageCreate', (msg) => {
+    if(msg.content.startsWith(`${prefix}test`));
+
+        const link = msg.content.split(' ').slice(1);
+
+        msg.channel.send(link)
 })
 
 
