@@ -9,14 +9,19 @@ client.on('ready', async () => {
 
 const prefix = '.'
 
-client.on('messageCreate', (msg, args) => {
+client.on('messageCreate', async (msg) => {
     if(msg.content.startsWith(`${prefix}test`)) {
 
-    const link = msg.content.split(' ').slice(1);
-    msg.channel.send(link[0]);
-
+        try {
+            const link = msg.content.split(' ').slice(1);
+            const result = await dt.downloadTiktok(link[0])
+            const noWatermark = dt.filterNoWatermark(result.medias)
+            msg.channel.send(noWatermark[0].url)
+        } catch (err) {
+            console.error(err)
+        }
     }
-})
+});
 
 
 client.login(process.env.Token);
